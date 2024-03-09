@@ -10,7 +10,7 @@ import java.util.Collection;
 
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name="users",uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @Data
 public class User {
     @Id
@@ -42,4 +42,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_courses",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "course_id", referencedColumnName = "id"))
+    private Collection<Course> courses;
 }
