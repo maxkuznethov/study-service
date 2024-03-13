@@ -18,10 +18,7 @@ public class User {
     private Long id;
 
     @NotBlank
-    private String name;
-
-    @NotBlank
-    private String surname;
+    private String username;
 
     @NotBlank
     @Email
@@ -31,8 +28,6 @@ public class User {
 
     @NotBlank
     private String password;
-
-
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -51,4 +46,15 @@ public class User {
             inverseJoinColumns = @JoinColumn(
                     name = "course_id", referencedColumnName = "id"))
     private Collection<Course> courses;
+
+    public User(String username, String email, String password, String phone) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+    }
+
+    public User() {
+
+    }
 }
